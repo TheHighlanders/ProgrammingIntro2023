@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.TeleopDriveCMD;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -16,10 +19,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  XboxController driverController = new XboxController(0);
   // The robot's subsystems and commands are defined here
+  DriveSubsystem driveSubsystem = new DriveSubsystem();
+
+  TeleopDriveCMD driveCMD = new TeleopDriveCMD(() -> driverController.getLeftX(), ()->driverController.getLeftY(), driveSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    driveSubsystem.setDefaultCommand(driveCMD);
     // Configure the trigger bindings
     configureBindings();
   }

@@ -14,10 +14,13 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
-    
+    public static final int driverControllerID = 0;
+    public static final int driverControllerDriveStickYAxisID = 0;
+    public static final int driverControllerDriveStickXAxisID = 0;
   }
 
   public static class DriveConstants {
-    
+    public static final int leftDriveID = 1;
+    public static final int rightDriveID = 2;
   }
 }
