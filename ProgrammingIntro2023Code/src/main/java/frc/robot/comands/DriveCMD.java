@@ -25,6 +25,8 @@ public class DriveCMD extends CommandBase {
     yAxis = y;
     xAxis = x;
 
+    addRequirements(drivesub);
+
   }
 
   // Called when the command is initially scheduled.

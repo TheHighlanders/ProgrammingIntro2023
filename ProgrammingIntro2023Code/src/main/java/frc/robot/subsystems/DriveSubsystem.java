@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveSubsystem extends SubsystemBase {
   CANSparkMax left;
   CANSparkMax right;
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
-left = new CANSparkMax(1,MotorType.kBrushless);
-//we have a left moror thats id is 1 and its brushless
+    left = new CANSparkMax(6, MotorType.kBrushless);
+    //we have a left moror thats id is 1 and its brushless
 
-
-right = new CANSparkMax(2,MotorType.kBrushless);
-//we have a right moror thats id is 2 and its brushless
+    right = new CANSparkMax(3, MotorType.kBrushless);
+    //we have a right moror thats id is 2 and its brushless
 
   }
 
@@ -28,16 +28,16 @@ right = new CANSparkMax(2,MotorType.kBrushless);
     // This method will be called once per scheduler run
   }
 
-  public void drive(double left, double right){
-//what is happening?????????????????
-this.left.set(left);
+  public void drive(double left, double right) {
+    //what is happening?????????????????
+    this.left.set(left);
 
-this.right.set(right);
+    this.right.set(right);
 
   }
 
-public void stop(){
-this.left.set(0);
-this.right.set(0);
-}
+  public void stop() {
+    this.left.set(0);
+    this.right.set(0);
+  }
 }
