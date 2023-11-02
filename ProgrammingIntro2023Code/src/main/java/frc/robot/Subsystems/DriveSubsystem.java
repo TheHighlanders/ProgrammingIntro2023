@@ -5,32 +5,55 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
 
- CANSparkMax left;
- CANSparkMax right;
- 
+  CANSparkMax left;
+  CANSparkMax right;
+  SparkMaxPIDController leftPID;
+  SparkMaxPIDController rightPID;
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
     left = new CANSparkMax(1, MotorType.kBrushless);
     right = new CANSparkMax(2, MotorType.kBrushless);
+    leftPID = left.getPIDController();
+    rightPID = right.getPIDController();
+
+    leftPID.setP(Constants.DriveConstants.kp);
+    rightPID.setP(Constants.DriveConstants.kp);
+
+    leftPID.setP(Constants.DriveConstants.ki);
+    rightPID.setP(Constants.DriveConstants.ki);
+
+    leftPID.setP(Constants.DriveConstants.kd);
+    rightPID.setP(Constants.DriveConstants.kd);
   }
 
-public void drive(double left, double right) {
+  public void sEtSeTwHERe(double x) {
+    leftPID.setReference(x, ControlType.kPosition);
+    rightPID.setReference(-x, ControlType.kPosition);
+  }
 
-  this.left.set(left);
-  this.right.set(right);
-}
-public void stop() {
+  public void drive(double left, double right) {
 
-  left.set(0);
-  right.set(0);
-}
+    this.left.set(left);
+    this.right.set(right);
+  }
+
+  public void stop() {
+
+    left.set(0);
+    right.set(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
