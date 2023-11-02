@@ -23,7 +23,7 @@ public final class Constants {
     public static final double kTotalDriveRatio = kDriveGBRatio * kWheelCircumfrence;
 
     public static double kp = 1;
-    public static double ki = 1;
-    public static double kd = 1;
+    public static double ki = 0;
+    public static double kd = 0;
   }
 }
