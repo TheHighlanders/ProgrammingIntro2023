@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.DriveSubsystem;
 
@@ -13,20 +14,21 @@ public class AutoDriveCommand extends CommandBase {
   DriveSubsystem driveSubAuto;
   double destination;
 
-  public AutoDriveCommand(DriveSubsystem dss, Double x) {
+  public AutoDriveCommand(DriveSubsystem dss, double x) {
     driveSubAuto = dss;
     destination = x;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    driveSubAuto.setDestination(destination);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    driveSubAuto.setDestination(destination);
+    DriverStation.reportWarning("CMD", false);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -35,6 +37,6 @@ public class AutoDriveCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

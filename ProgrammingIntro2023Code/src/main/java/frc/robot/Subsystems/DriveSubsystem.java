@@ -5,12 +5,15 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -20,12 +23,18 @@ public class DriveSubsystem extends SubsystemBase {
 SparkMaxPIDController leftPID;
 SparkMaxPIDController rightPID;
 
+double ref = 0;
+
+RelativeEncoder leftEncoder;
+RelativeEncoder rightEncoder;
+
+
  
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
-    left = new CANSparkMax(1, MotorType.kBrushless);
-    right = new CANSparkMax(2, MotorType.kBrushless);
+    left = new CANSparkMax(6, MotorType.kBrushless);
+    right = new CANSparkMax(3, MotorType.kBrushless);
 
     leftPID = left.getPIDController();
     rightPID = right.getPIDController();
@@ -38,6 +47,16 @@ SparkMaxPIDController rightPID;
 
     leftPID.setD(Constants.DriveConstants.kd);
     rightPID.setD(Constants.DriveConstants.kd);
+
+    leftEncoder = left.getEncoder();
+    rightEncoder = right.getEncoder();
+
+    leftEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+
   }
 
 public void drive(double left, double right) {
@@ -54,11 +73,13 @@ public void stop() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    DriverStation.reportWarning(leftEncoder.getPosition() + " " + ref, false);
+
   }
 
   public void setDestination(double x){
     leftPID.setReference(-x, ControlType.kPosition);
     rightPID.setReference(x, ControlType.kPosition);
-
+    ref = -x;
   }
 }

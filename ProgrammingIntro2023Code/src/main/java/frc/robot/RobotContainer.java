@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Commands.AutoDriveCommand;
 import frc.robot.Commands.TeleopDriveCMD;
-import frc.robot.Subsystems.DriveSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,12 +21,13 @@ import frc.robot.Subsystems.DriveSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
-  XboxController xbox = new XboxController(0);
-  TeleopDriveCMD driveCMD = new TeleopDriveCMD(driveSubsystem, ()->xbox.getLeftX() , ()->xbox.getLeftY());
-  AutoDriveCommand ADriveCMD = new AutoDriveCommand(driveSubsystem, 200d);
+DriveSubsystem driveSubsystem = new DriveSubsystem();
+XboxController xbox = new XboxController(0);
+TeleopDriveCMD driveCMD = new TeleopDriveCMD(driveSubsystem, ()->xbox.getLeftX(), ()->xbox.getLeftY()); 
+AutoDriveCommand autoDrive = new AutoDriveCommand(driveSubsystem, 60);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
     driveSubsystem.setDefaultCommand(driveCMD);
     // Configure the trigger bindings
     configureBindings();
@@ -52,6 +53,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return ADriveCMD;
+    return autoDrive;
   }
 }
