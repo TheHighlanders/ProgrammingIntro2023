@@ -17,6 +17,16 @@ public class AutoDriveCommand extends CommandBase {
   public AutoDriveCommand(DriveSubsystem dss, double x) {
     driveSubAuto = dss;
     destination = x;
+        /*
+
+.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•
+
+　　ﾟ　　 PID was not An Impostor.　 。　.
+
+　　'　　　     Add in your addRequirements　 　　。
+
+　　ﾟ　　　.　　　. ,　　　　.　 .
+     */
   }
 
   // Called when the command is initially scheduled.
