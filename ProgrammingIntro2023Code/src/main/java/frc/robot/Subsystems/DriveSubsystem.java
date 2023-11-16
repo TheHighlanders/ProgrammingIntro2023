@@ -17,19 +17,17 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
- CANSparkMax left;
- CANSparkMax right;
+  CANSparkMax left;
+  CANSparkMax right;
 
-SparkMaxPIDController leftPID;
-SparkMaxPIDController rightPID;
+  SparkMaxPIDController leftPID;
+  SparkMaxPIDController rightPID;
 
-double ref = 0;
+  public double ref = 0;
 
-RelativeEncoder leftEncoder;
-RelativeEncoder rightEncoder;
+  public RelativeEncoder leftEncoder;
+  public RelativeEncoder rightEncoder;
 
-
- 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
@@ -59,17 +57,18 @@ RelativeEncoder rightEncoder;
 
   }
 
-public void drive(double left, double right) {
-  
+  public void drive(double left, double right) {
 
-  this.left.set(left);
-  this.right.set(right);
-}
-public void stop() {
+    this.left.set(left);
+    this.right.set(right);
+  }
 
-  left.set(0);
-  right.set(0);
-}
+  public void stop() {
+
+    left.set(0);
+    right.set(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -77,9 +76,9 @@ public void stop() {
 
   }
 
-  public void setDestination(double x){
-    leftPID.setReference(-x, ControlType.kPosition);
-    rightPID.setReference(x, ControlType.kPosition);
-    ref = -x;
+  public void setDestination(double x, double y) {
+    leftPID.setReference(x, ControlType.kPosition);
+    rightPID.setReference(y, ControlType.kPosition);
+    ref = x;
   }
 }
