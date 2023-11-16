@@ -19,6 +19,19 @@ public class DriveSubsystem extends SubsystemBase {
   SparkMaxPIDController leftPID;
   SparkMaxPIDController rightPID;
 
+<<<<<<< Updated upstream
+=======
+SparkMaxPIDController leftPID;
+SparkMaxPIDController rightPID;
+
+public double ref = 0;
+
+public RelativeEncoder leftEncoder;
+public RelativeEncoder rightEncoder;
+
+
+ 
+>>>>>>> Stashed changes
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
@@ -57,5 +70,16 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+<<<<<<< Updated upstream
+=======
+    DriverStation.reportWarning(leftEncoder.getPosition() + " " + ref, false);
+
+  }
+
+  public void setDestination(double x, double y){
+    leftPID.setReference(x, ControlType.kPosition);
+    rightPID.setReference(y, ControlType.kPosition);
+    ref = x;
+>>>>>>> Stashed changes
   }
 }

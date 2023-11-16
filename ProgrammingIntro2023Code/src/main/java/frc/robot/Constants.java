@@ -25,5 +25,6 @@ public final class Constants {
     public static double kp = 1;
     public static double ki = 1;
     public static double kd = 1;
+    public static double radius = 11;
   }
 }
