@@ -14,20 +14,19 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
-    
+
   }
 
   public static class DriveConstants {
-   public static final double kg = 1/12.75;
-   public static final double kwc = 6 * Math.PI;
-   public static final double kd = kg * kwc;
-   
-   
-   public static final double kD = 1;
-   public static final double kP = 1;
-   public static final double kI = 1 ;
+    public static final double kDriveGBRatio = 1.0d / (12.75);
+    public static final double kWheelCircumfrence = (6 * Math.PI);
+    public static final double kTotalDriveRatio = kDriveGBRatio * kWheelCircumfrence;
 
-   
 
+    public static double kp = 0.1;
+    public static double ki = 0;
+    public static double kd = 1;
+    public static double margin = 1;
+    public static double R = 11;
   }
 }

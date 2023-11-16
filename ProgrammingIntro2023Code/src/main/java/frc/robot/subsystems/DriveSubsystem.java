@@ -4,66 +4,81 @@
 
 package frc.robot.subsystems;
 
-import javax.security.auth.RefreshFailedException;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-  PIDController drivController; 
-  //potatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopoatatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotatopotato
-
-
-
   CANSparkMax left;
-  RelativeEncoder leftEncoder;
   CANSparkMax right;
-  RelativeEncoder rightEncoder;
 
+  SparkMaxPIDController leftPID;
+  SparkMaxPIDController rightPID;
+
+  public double ref = 0;
+
+  public RelativeEncoder leftEncoder;
+  public RelativeEncoder rightEncoder;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
-drivController = new PIDController(p, i, d)
-
-
     left = new CANSparkMax(6, MotorType.kBrushless);
-    //we have a left moror thats id is 1 and its brushless
-    leftEncoder = left.getEncoder();
-    leftEncoder.setPositionConversionFactor(DriveConstants.kd); 
-    leftEncoder.setPosition(0);
-
     right = new CANSparkMax(3, MotorType.kBrushless);
-    //we have a right moror thats id is 2 and its brushless
+
+    leftPID = left.getPIDController();
+    rightPID = right.getPIDController();
+
+    leftPID.setP(Constants.DriveConstants.kp);
+    rightPID.setP(Constants.DriveConstants.kp);
+
+    leftPID.setI(Constants.DriveConstants.ki);
+    rightPID.setI(Constants.DriveConstants.ki);
+
+    leftPID.setD(Constants.DriveConstants.kd);
+    rightPID.setD(Constants.DriveConstants.kd);
+
+    leftEncoder = left.getEncoder();
     rightEncoder = right.getEncoder();
-    rightEncoder.setPositionConversionFactor(DriveConstants.kd); 
+
+    leftEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+
+    leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
 
+  }
 
+  public void drive(double left, double right) {
 
+    this.left.set(left);
+    this.right.set(right);
+  }
+
+  public void stop() {
+
+    left.set(0);
+    right.set(0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  public void drive(double left, double right) {
-    //what is happening?????????????????
-    this.left.set(left);
-
-    this.right.set(right);
+    DriverStation.reportWarning(leftEncoder.getPosition() + " " + ref, false);
 
   }
 
-  public void stop() {
-    this.left.set(0);
-    this.right.set(0);
+  public void setDestination(double x, double y) {
+    leftPID.setReference(x, ControlType.kPosition);
+    rightPID.setReference(y, ControlType.kPosition);
+    ref = x;
   }
 }
