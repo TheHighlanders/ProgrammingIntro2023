@@ -5,43 +5,34 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Subsystems.DriveSubsystem;
 
-public class AutoDriveCommand extends CommandBase {
-  /** Creඞtes ඞ new AutoDriveCommand. */
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class AutoTurnDriveCommand extends CommandBase {
 
   DriveSubsystem driveSubAuto;
-  double destination;
+  double angle;
 
-  public AutoDriveCommand(DriveSubsystem dss, double x) {
+  public AutoTurnDriveCommand(DriveSubsystem dss, double x) {
     driveSubAuto = dss;
-    destination = x;
+    angle = Math.toRadians(x);
     addRequirements(driveSubAuto);
-    /*
-    
-    .　　 。　　　　　 ඞඞඞඞඞඞඞඞඞඞඞඞඞඞඞඞඞ 。 . 　　 • 　　　　•
-    
-    　　ﾟ　　 PID was not ඞn Impostor.　 。　.
-    
-    　　'　　　     ඞdd in your ඞddRequirements　 　　。
-    
-    　　ﾟ　　　.　　　. ,　　　　.　 .
-    */
   }
 
-  // Cඞlled when the commඞnd is initiඞlly scheduled.
+  /** Creates a new Auto2DriveCommand. */
+
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  // Cඞlled every time the scheduler runs while the commඞnd is scheduled.
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubAuto.setDestination(destination, -destination);
-    DriverStation.reportWarning("CMD", false);
+    driveSubAuto.setDestination(angle * DriveConstants.turnRadius, angle * DriveConstants.turnRadius);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,7 +40,7 @@ public class AutoDriveCommand extends CommandBase {
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the commඞnd should end.
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     double pos = driveSubAuto.rightEncoder.getPosition();
