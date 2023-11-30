@@ -5,12 +5,15 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -19,11 +22,6 @@ public class DriveSubsystem extends SubsystemBase {
   SparkMaxPIDController leftPID;
   SparkMaxPIDController rightPID;
 
-<<<<<<< Updated upstream
-=======
-SparkMaxPIDController leftPID;
-SparkMaxPIDController rightPID;
-
 public double ref = 0;
 
 public RelativeEncoder leftEncoder;
@@ -31,12 +29,11 @@ public RelativeEncoder rightEncoder;
 
 
  
->>>>>>> Stashed changes
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
-    left = new CANSparkMax(1, MotorType.kBrushless);
-    right = new CANSparkMax(2, MotorType.kBrushless);
+    left = new CANSparkMax(6, MotorType.kBrushless);
+    right = new CANSparkMax(3, MotorType.kBrushless);
     leftPID = left.getPIDController();
     rightPID = right.getPIDController();
 
@@ -48,11 +45,20 @@ public RelativeEncoder rightEncoder;
 
     leftPID.setP(Constants.DriveConstants.kd);
     rightPID.setP(Constants.DriveConstants.kd);
+
+    leftEncoder= left.getEncoder();
+    rightEncoder= right.getEncoder();
+
+    leftEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kTotalDriveRatio);
+
+    leftPID.setOutputRange(-.1, .1);
+    rightPID.setOutputRange(-.1,.1);
   }
 
   public void sEtSeTwHERe(double x) {
-    leftPID.setReference(x, ControlType.kPosition);
-    rightPID.setReference(-x, ControlType.kPosition);
+    leftPID.setReference(x + leftEncoder.getPosition(), ControlType.kPosition);
+    rightPID.setReference(-x + rightEncoder.getPosition(), ControlType.kPosition);
   }
 
   public void drive(double left, double right) {
@@ -70,8 +76,6 @@ public RelativeEncoder rightEncoder;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-<<<<<<< Updated upstream
-=======
     DriverStation.reportWarning(leftEncoder.getPosition() + " " + ref, false);
 
   }
@@ -80,6 +84,5 @@ public RelativeEncoder rightEncoder;
     leftPID.setReference(x, ControlType.kPosition);
     rightPID.setReference(y, ControlType.kPosition);
     ref = x;
->>>>>>> Stashed changes
   }
 }

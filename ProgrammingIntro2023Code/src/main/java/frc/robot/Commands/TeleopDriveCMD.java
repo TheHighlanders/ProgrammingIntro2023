@@ -19,6 +19,8 @@ public class TeleopDriveCMD extends CommandBase {
     driveSubsystem = ds;
     xAxis = x;
     yAxis = y;
+
+    addRequirements((driveSubsystem));
   }
 
   // Called when the command is initially scheduled.

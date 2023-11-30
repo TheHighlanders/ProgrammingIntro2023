@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AutoVroomCommand;
+import frc.robot.Commands.AutoooooooTuuuuurnnn;
 import frc.robot.Commands.TeleopDriveCMD;
 import frc.robot.Subsystems.DriveSubsystem;
 
@@ -24,7 +25,8 @@ public class RobotContainer {
   DriveSubsystem driveSubsystem = new DriveSubsystem();
   XboxController xbox = new XboxController(0);
   TeleopDriveCMD driveCMD = new TeleopDriveCMD(driveSubsystem, () -> xbox.getLeftX(), () -> xbox.getLeftY());
-  AutoVroomCommand great = new AutoVroomCommand(driveSubsystem, 0.5);
+  AutoVroomCommand great = new AutoVroomCommand(driveSubsystem, 24);
+  AutoooooooTuuuuurnnn whoosh = new AutoooooooTuuuuurnnn(driveSubsystem, 270);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
