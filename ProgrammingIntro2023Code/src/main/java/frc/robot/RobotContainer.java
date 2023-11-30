@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Commands.AutoDriveCommand;
+import frc.robot.Commands.AutoTurnDriveCommand;
 import frc.robot.Commands.TeleopDriveCMD;
 
 /**
@@ -24,7 +25,8 @@ public class RobotContainer {
 DriveSubsystem driveSubsystem = new DriveSubsystem();
 XboxController xbox = new XboxController(0);
 TeleopDriveCMD driveCMD = new TeleopDriveCMD(driveSubsystem, ()->xbox.getLeftX(), ()->xbox.getLeftY()); 
-AutoDriveCommand autoDrive = new AutoDriveCommand(driveSubsystem, 60);
+AutoDriveCommand autoDrive60in = new AutoDriveCommand(driveSubsystem, 60);
+AutoTurnDriveCommand autoTurn360deg = new AutoTurnDriveCommand(driveSubsystem, 360);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -53,6 +55,6 @@ AutoDriveCommand autoDrive = new AutoDriveCommand(driveSubsystem, 60);
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoDrive;
+    return autoTurn360deg;
   }
 }

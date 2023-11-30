@@ -77,8 +77,17 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void setDestination(double x, double y) {
-    leftPID.setReference(x, ControlType.kPosition);
-    rightPID.setReference(y, ControlType.kPosition);
+    leftPID.setReference(x + leftEncoder.getPosition(), ControlType.kPosition);
+    rightPID.setReference(y + rightEncoder.getPosition(), ControlType.kPosition);
     ref = x;
   }
 }
+
+
+
+
+
+
+
+
+
