@@ -27,23 +27,26 @@ public class AutoTurnDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //driveSubAuto.setMinMaxSpeed(0.05);
+    driveSubAuto.setDestination(angle * DriveConstants.turnRadius, angle * DriveConstants.turnRadius);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubAuto.setDestination(angle * DriveConstants.turnRadius, angle * DriveConstants.turnRadius);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    driveSubAuto.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double pos = driveSubAuto.rightEncoder.getPosition();
+    double pos = driveSubAuto.leftEncoder.getPosition();
     double dest = driveSubAuto.ref;
 
     return pos > dest - DriveConstants.margin && pos < dest + DriveConstants.margin;

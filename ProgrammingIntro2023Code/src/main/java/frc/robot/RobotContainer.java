@@ -47,6 +47,7 @@ AutoTurnDriveCommand autoTurn360deg = new AutoTurnDriveCommand(driveSubsystem, 3
   private void configureBindings() {
 
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -55,6 +56,6 @@ AutoTurnDriveCommand autoTurn360deg = new AutoTurnDriveCommand(driveSubsystem, 3
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoTurn360deg;
+    return new SequentialCommandGroup(new AutoDriveCommand(driveSubsystem, 120), new AutoTurnDriveCommand(driveSubsystem, 180));
   }
 }

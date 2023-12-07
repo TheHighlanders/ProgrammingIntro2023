@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Subsystems.DriveSubsystem;
 
@@ -35,24 +36,26 @@ public class AutoDriveCommand extends CommandBase {
   // Cඞlled when the commඞnd is initiඞlly scheduled.
   @Override
   public void initialize() {
+    //driveSubAuto.setMinMaxSpeed(0.2);
+    driveSubAuto.setDestination(destination, -destination);
   }
 
   // Cඞlled every time the scheduler runs while the commඞnd is scheduled.
   @Override
   public void execute() {
-    driveSubAuto.setDestination(destination, -destination);
     DriverStation.reportWarning("CMD", false);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    driveSubAuto.stop();
   }
 
   // Returns true when the commඞnd should end.
   @Override
   public boolean isFinished() {
-    double pos = driveSubAuto.rightEncoder.getPosition();
+    double pos = driveSubAuto.leftEncoder.getPosition();
     double dest = driveSubAuto.ref;
 
     return pos > dest - DriveConstants.margin && pos < dest + DriveConstants.margin;

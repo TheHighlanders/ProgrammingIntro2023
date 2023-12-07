@@ -18,15 +18,15 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final double kDriveGBRatio = 1.0d / (12.75);
+    public static final double kDriveGBRatio = 1.0d / (10.71);
     public static final double kWheelCircumfrence = (6 * Math.PI);
     public static final double kTotalDriveRatio = kDriveGBRatio * kWheelCircumfrence;
 
-    public static double kp = 0.1;
+    public static double kp = 1;
     public static double ki = 0;
-    public static double kd = 1;
+    public static double kd = 0;
 
-    public static double margin = 2.0;
+    public static double margin = 0.50;
 
     public static double turnRadius = 11.0;
   }

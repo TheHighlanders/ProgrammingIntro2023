@@ -55,6 +55,15 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
 
+    leftPID.setOutputRange(-0.25, 0.25);
+    rightPID.setOutputRange(-0.25, 0.25);
+
+  }
+
+  public void setMinMaxSpeed(double speed){
+    leftPID.setOutputRange(-speed, speed);
+    rightPID.setOutputRange(-speed, speed);
+
   }
 
   public void drive(double left, double right) {
@@ -76,10 +85,17 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void zeroSensors(){
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+
+  
+  }
+
   public void setDestination(double x, double y) {
     leftPID.setReference(x + leftEncoder.getPosition(), ControlType.kPosition);
     rightPID.setReference(y + rightEncoder.getPosition(), ControlType.kPosition);
-    ref = x;
+    ref = x + leftEncoder.getPosition();
   }
 }
 
