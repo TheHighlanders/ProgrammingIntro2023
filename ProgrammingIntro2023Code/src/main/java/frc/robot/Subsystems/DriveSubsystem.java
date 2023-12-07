@@ -5,18 +5,34 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
     
     CANSparkMax left;
+    SparkMaxPIDController leftPID;
     CANSparkMax right;
+    SparkMaxPIDController rightPID;
 
     public DriveSubsystem() {
         left = new CANSparkMax(1, MotorType.kBrushless);
         right = new CANSparkMax(2, MotorType.kBrushless);
+        
+        leftPID = left.getPIDController();
+        leftPID.setP(Constants.DriveConstants.kp);
+        leftPID.setI(Constants.DriveConstants.ki);
+        leftPID.setD(Constants.DriveConstants.kd);
+
+        rightPID = right.getPIDController();
+        rightPID.setP(Constants.DriveConstants.kp);
+        rightPID.setI(Constants.DriveConstants.ki);
+        rightPID.setD(Constants.DriveConstants.kd);
     }
 
     public void drive(double left, double right) {
@@ -31,6 +47,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void periodic() {
         return;
+    }
+
+    public void setDestination(double destination) {
+        leftPID.setReference(-destination, ControlType.kPosition);
+        rightPID.setReference(destination, ControlType.kPosition);
     }
 
 }

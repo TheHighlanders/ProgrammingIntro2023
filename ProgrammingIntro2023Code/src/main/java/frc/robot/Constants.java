@@ -18,6 +18,12 @@ public final class Constants {
   }
 
   public static class DriveConstants {
+    public static final double kDriveGBRatio = 1 / (12.75);
+    public static final double kWheelCircumfrence = 4 * Math.PI;
+    public static final double kTotalDriveRatio = kDriveGBRatio * kWheelCircumfrence;
     
+    public static double kp = 1;
+    public static double ki = 1;
+    public static double kd = 1;
   }
 }
