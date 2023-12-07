@@ -9,28 +9,29 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystems extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
     
     CANSparkMax left;
     CANSparkMax right;
 
-    public void DriveSubsystems() {
-        left = new CANSparkMax(0, MotorType.kBrushless);
-        right = new CANSparkMax(0, MotorType.kBrushless);
+    public DriveSubsystem() {
+        left = new CANSparkMax(1, MotorType.kBrushless);
+        right = new CANSparkMax(2, MotorType.kBrushless);
     }
 
-    public void drive(int left, int right) {
+    public void drive(double left, double right) {
         this.left.set(left);
         this.right.set(right);
     }
 
-    public void stop(){
+    public void stop() {
         left.set(0);
         right.set(0);
     }
 
-    public void periodic {
-
+    public void periodic() {
+        return;
     }
 
 }
+
