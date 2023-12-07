@@ -18,12 +18,16 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final double kDriveGBRatio = 1 / (12.75);
-    public static final double kWheelCircumfrence = 4 * Math.PI;
+    //Telling code about physicak properties of robot
+    public static final double kDriveGBRatio = 1 / 10.71;
+    public static final double kWheelCircumfrence = 6 * Math.PI;
     public static final double kTotalDriveRatio = kDriveGBRatio * kWheelCircumfrence;
-    
+    //Magic!
     public static double kp = 1;
-    public static double ki = 1;
-    public static double kd = 1;
+    public static double ki = 0;
+    public static double kd = 0;
+
+    public static double margin = 0.5;
+    public static double turnRadius = 11;
   }
 }

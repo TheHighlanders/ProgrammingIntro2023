@@ -79,10 +79,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void setDestination(double left, double right) {
-        leftPID.setReference(-destination, ControlType.kPosition);
-        rightPID.setReference(destination, ControlType.kPosition);
+        leftPID.setReference(left + leftEncoder.getPosition(), ControlType.kPosition);
+        rightPID.setReference(-right + rightEncoder.getPosition(), ControlType.kPosition);
         
-        ref = -destination + leftEncoder.getPosition();
+        ref = left + leftEncoder.getPosition();
         // I believe this is error? Or amount to go?
     }
 

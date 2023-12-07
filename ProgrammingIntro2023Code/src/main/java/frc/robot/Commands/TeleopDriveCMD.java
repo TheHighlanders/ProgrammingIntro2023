@@ -16,6 +16,7 @@ public class TeleopDriveCMD extends CommandBase {
         driveSubsystem = ds;
         xAxis = x;
         yAxis = y;
+        addRequirements(driveSubsystem);
     }
 
     @Override
