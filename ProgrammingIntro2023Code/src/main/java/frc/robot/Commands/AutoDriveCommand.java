@@ -35,6 +35,10 @@ public class AutoDriveCommand extends CommandBase {
   // Cඞlled when the commඞnd is initiඞlly scheduled.
   @Override
   public void initialize() {
+
+    driveSubAuto.setDestination(destination, -destination);
+
+    
   }
 
   // Cඞlled every time the scheduler runs while the commඞnd is scheduled.
@@ -42,6 +46,8 @@ public class AutoDriveCommand extends CommandBase {
   public void execute() {
     driveSubAuto.setDestination(destination, -destination);
     DriverStation.reportWarning("CMD", false);
+
+
   }
 
   // Called once the command ends or is interrupted.
