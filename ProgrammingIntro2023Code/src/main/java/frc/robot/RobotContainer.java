@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AutoDriveCommand;
+import frc.robot.Commands.AutoTurnCommand;
+import frc.robot.Commands.AutoTurnRadiusCommand;
 import frc.robot.Commands.TeleopDriveCMD;
 import frc.robot.Subsystems.DriveSubsystem;
 
@@ -55,8 +57,14 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
-      new AutoDriveCommand(driveSubsystem, 60)
-      //ADD COMMANDS HERE
+      new AutoDriveCommand(driveSubsystem, 60), 
+      new AutoTurnCommand(driveSubsystem, 90),
+      new AutoTurnRadiusCommand(driveSubsystem, 90, 30),
+      new AutoDriveCommand(driveSubsystem, 19),
+      new AutoTurnRadiusCommand(driveSubsystem, 90, 11),
+      new AutoDriveCommand(driveSubsystem, 30),
+      new AutoTurnCommand(driveSubsystem, 90)
+      //Makes a filleted square to the forward and left
     );
   }
 }

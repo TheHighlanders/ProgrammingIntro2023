@@ -5,20 +5,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Constants.DriveConstants;
 
-public class AutoDriveCommand extends CommandBase {
+public class AutoTurnRadiusCommand extends CommandBase {
     
     DriveSubsystem driveSubAuto;
     double destination;
+    double radius;
 
-    public AutoDriveCommand(DriveSubsystem ds, double x) {
+    public AutoTurnRadiusCommand(DriveSubsystem ds, double ang, double rad) {
         driveSubAuto = ds;
-        destination = x;
+        destination = Math.toRadians(ang); // Positive is forward, negative is back
+        radius = rad; // Positive is to the right, negative is to the left
         addRequirements(driveSubAuto);
     }
 
     @Override
     public void initialize() {
-        driveSubAuto.setDestination(destination, destination);
+        driveSubAuto.setDestination(destination * (radius + DriveConstants.turnRadius), destination * (radius - DriveConstants.turnRadius));
     }
 
     @Override
